@@ -49,7 +49,6 @@ def dateValid(day, month, year):
 MAJORS = (
  ("AT","Automotive Technology"),
  ("BT","Building Technology"),
- ("BM","Business Management"),
  ("CD","Child Development"),
  ("CVP","Cinematography & Video Production"),
  ("CP","Computer Programming"),
