@@ -1,2 +1,3 @@
 # knights-app
-initial version as of the end of the 2017-2018 school year. (9/19/18)
+initial version as completed at the end of 
+the 2017-2018 school year.
