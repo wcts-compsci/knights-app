@@ -6,6 +6,7 @@ on Feb 23rd 2018
 
 from django.db import models
 from django.core.validators import RegexValidator
+from datetime import date
 
 '''
 regex written by Andrew Flyte. Gives user the option of entering
@@ -23,6 +24,10 @@ phone_regex = RegexValidator(
 date validation code written by Garrett Maurer 3/19/18
 captures days per month and leap year logic
 '''
+def obtainDate():
+	correctDate = date.today().year
+	return correctDate
+
 def checkLeap(year):
     if(year % 4 == 0):
         return True
@@ -44,7 +49,26 @@ def dateValid(day, month, year):
         if(checkLeap(year)):
             return True
         else:
-            return False
+            return False24.09.2018
+
+#done by OM and GM; automated the year dropdown 9/21           
+def get_default_year():
+	defaultDate = obtainDate() - 13
+	return defaultDate
+
+before = get_default_year() - 1
+twoBefore = get_default_year() - 2
+threeBefore = get_default_year() - 3
+fourBefore = get_default_year() - 4
+fiveBefore = get_default_year() - 5
+
+defaultYearStr = str(get_default_year())
+beforeStr = str(before)
+twoBeforeStr = str(twoBefore)
+threeBeforeStr = str(threeBefore)
+fourBeforeStr = str(fourBefore)
+fiveBeforeStr = str(fiveBefore)
+
 #career major options compiled by Thomas Sperduto
 MAJORS = (
  ("AT","Automotive Technology"),
@@ -219,12 +243,12 @@ MONTHS = (
 )
 #Omar
 YEARS = (
-   (2000, "2000"),
-   (2001, "2001"),
-   (2002, "2002"),
-   (2003, "2003"),
-   (2004, "2004"),
-   (2005, "2005"),
+   (fiveBefore, fiveBeforeStr),
+   (fourBefore, fourBeforeStr),
+   (threeBefore, threeBeforeStr),
+   (twoBefore, twoBeforeStr),
+   (before, beforeStr),
+   (get_default_year(), defaultYearStr),
 )
 
 class Applicant(models.Model):
@@ -233,7 +257,7 @@ class Applicant(models.Model):
     last_name = models.CharField(max_length = 100)
     birth_month = models.IntegerField(choices = MONTHS) #add choices
     birth_date = models.IntegerField()
-    birth_year = models.IntegerField(choices = YEARS, default = "2004")
+    birth_year = models.IntegerField(choices = YEARS, default = get_default_year())
     mailing_address = models.CharField(max_length = 100)
     apartment_number = models.CharField(max_length = 5, blank = True)
     city = models.CharField(max_length = 100, choices = CITIES)
