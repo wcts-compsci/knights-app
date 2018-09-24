@@ -49,7 +49,7 @@ def dateValid(day, month, year):
         if(checkLeap(year)):
             return True
         else:
-            return False24.09.2018
+            return False
 
 #done by OM and GM; automated the year dropdown 9/21           
 def get_default_year():
