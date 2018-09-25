@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from .models import Applicant
 from django import forms
 import smtplib
-
+import re
 #script created and implemented by:
 #Joey G, Omar M, Andrew F
 def generate_email(parent,first_name,last_name):
@@ -48,6 +48,7 @@ class ApplicantForm(forms.ModelForm):
 		exclude = ['birth_date', 'student_home_phone', 'parent_cell_1', 'counselor_phone']
 		
 def apply(request):
+	phone_regex = r'1-?\(?\d{3}?\)?[-.\s]?\d{3}[-.\s]?\d{4}'
 	if request.method != "POST":
 		form = ApplicantForm()
 	else:
@@ -58,9 +59,13 @@ def apply(request):
 			new_applicant.student_home_phone = "1-" + str(request.POST.get("student_areacode")) + "-" + str(request.POST.get("student_exchange")) + "-" + str(request.POST.get("student_last_four"))
 			new_applicant.parent_cell_1 = "1-" + str(request.POST.get("parent_areacode")) + "-" + str(request.POST.get("parent_exchange")) + "-" + str(request.POST.get("parent_last_four"))
 			new_applicant.counselor_phone = "1-" + str(request.POST.get("counselor_areacode")) + "-" + str(request.POST.get("counselor_exchange")) + "-" + str(request.POST.get("counselor_last_four"))
-			new_applicant.save()
-			generate_email(request.POST.get("parent_1_email"), request.POST.get("first_name"), request.POST.get("last_name"))
-			return HttpResponseRedirect('/confirm/')
+			if re.match(phone_regex, new_applicant.student_home_phone) and re.match(phone_regex, new_applicant.parent_cell_1) and re.match(phone_regex, new_applicant.counselor_phone):
+				new_applicant.save()
+				generate_email(request.POST.get("parent_1_email"), request.POST.get("first_name"), request.POST.get("last_name"))
+				return HttpResponseRedirect('/confirm/')
+			else:
+				print("invalide phone number")
+	
 	return render(request, 'wcts_app/apply_custom.html', {'form': form})
 	#return render(request, 'wcts_app/apply.html', {'form': form})
 		
