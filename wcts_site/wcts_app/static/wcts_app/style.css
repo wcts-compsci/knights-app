@@ -164,7 +164,8 @@ tr{
 }
 
 #id_middle_letter {
-    width:20px;
+    /*Changed by Thomas Sperduto*/
+    width:25px;
 }
 
 #id_birth_date {
@@ -265,12 +266,13 @@ input[type=submit]:active {
 
 
 input[type=text], input[type=email] {
+    /*Changed by Thomas Sperduto*/
+    box-sizing:border-box;
     border: 1px solid black;
     border-radius: 4px;
     background-color:#e7e6f2;
     color: Black;
-    
-}  
+}
 
 
 
