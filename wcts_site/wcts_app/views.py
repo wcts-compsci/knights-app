@@ -72,5 +72,7 @@ def apply(request):
 def confirm(request):
 	applicant = request.POST.get("first_name");
 	return render(request, 'wcts_app/confirm_new.html', {'name':applicant})
+def checklist(request):
+	return render(request, 'wcts_app/document_checklist.html', {'':''})
 
 
