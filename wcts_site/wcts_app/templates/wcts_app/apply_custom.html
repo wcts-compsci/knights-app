@@ -30,7 +30,9 @@
 		font-size: 18px;
 		font-weight: bolder;
 	}*/
-
+	 a:hover{
+            color: #becce0;
+        }
  </style>
 </head>
 <body>
@@ -70,7 +72,7 @@
      {{ form.birth_month.errors }}
      <th><label>Birthdate: </label></th>
      <td>{{ form.birth_month }}
-      <input type="number" min="1" id="id_birth_date" value="1" max="31" name="birth_date">
+      <input type="number" min="1" id="id_birth_date" max="31" name="birth_date">
      {{ form.birth_year.errors }}
      {{ form.birth_year }}</td>
      </tr>
@@ -317,6 +319,3 @@
  </script>
 </body>
 </html>
-
-
-
