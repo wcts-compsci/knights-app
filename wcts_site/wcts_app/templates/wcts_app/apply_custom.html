@@ -317,5 +317,66 @@
 	}
 	
  </script>
+ <script>
+ 
+        //CH and GM 10/12/18
+        //change these (v) when implementing
+        
+        var monthbox = document.getElementById("id_birth_month");
+        var daybox = document.getElementById("id_birth_date");
+        var yearbox = document.getElementById("id_birth_year");
+        
+        monthbox.onclick = updateDay;
+        daybox.onclick = updateDay;
+        yearbox.onclick = updateDay;
+        
+        function updateDay(){
+            var d = parseInt(daybox.value, 10);
+            var m = parseInt(monthbox.value, 10);
+            var y = parseInt(yearbox.value, 10);
+            dateValid(d, m, y);
+        }
+        
+        function checkLeap(year){
+            if(year % 4 == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+        function dateValid(day, month, year){
+            var thirtyOneMonths = [1, 3, 5, 7, 9, 11];
+            var thirtyMonths = [4, 6, 8, 10, 12];
+            if (thirtyMonths.indexOf(month) != -1){
+                daybox.max = 30;
+                //added to prevent larger number rollover
+                if(daybox.value > 30){
+					daybox.value = 30;
+				}
+            }
+            else if (thirtyOneMonths.indexOf(month) != -1){
+                daybox.max = 31;
+            }
+            else if (month == 2){
+                if(month == 2){
+                    if(checkLeap(year)){
+                        daybox.max = 29;
+                        //added to prevent larger number rollover
+                        if(daybox.value > 29){
+							daybox.value = 29;
+						}
+                    }else{
+                        daybox.max = 28;
+                        //added to prevent larger number rollover
+                        if(daybox.value > 28){
+							daybox.value = 28;
+						}
+                    }
+                }
+            }
+        }
+
+    </script>
 </body>
 </html>
